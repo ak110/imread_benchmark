@@ -98,7 +98,7 @@ def imread_tf(path):
         return None
     # https://www.tensorflow.org/api_docs/python/tf/io/decode_image
     # Note: decode_gif returns a 4-D array [num_frames, height, width, 3],
-    if path.stem == "gif":
+    if path.suffix == ".gif":
         return img.numpy()[0].astype(np.float32)
     else:
         return img.numpy().astype(np.float32)
