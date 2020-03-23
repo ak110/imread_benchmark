@@ -22,6 +22,7 @@ def _main():
         imread_pillow,
         imread_imageio,
         imread_skimage,
+        imread_tf,
     ]
 
     # 動作確認
