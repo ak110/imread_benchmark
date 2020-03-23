@@ -6,6 +6,7 @@
 - PIL.Image.open
 - imageio.imread
 - skimage.io.imread
+- [tf.io.decode_image](https://www.tensorflow.org/api_docs/python/tf/io/decode_image)
 
 (後ろ二つはバックエンドがPillowとかだったりするけど一応。)
 
@@ -22,42 +23,48 @@
 
 ```txt
 ================================ img.gif ================================
-imread_opencv  : 16.9
-imread_pillow  :  8.4
-imread_imageio : 43.0
-imread_skimage : 10.6
-================================ img.jpg ================================
-imread_opencv  : 17.9
-imread_pillow  : 31.0
-imread_imageio : 31.3
-imread_skimage : 31.1
+imread_opencv  : 14.8[sec] (mean: 0.0493)[sec]
+imread_pillow  : 11.0[sec] (mean: 0.0366)[sec]
+imread_imageio : 62.4[sec] (mean: 0.2081)[sec]
+imread_skimage : 61.0[sec] (mean: 0.2034)[sec]
+imread_tf      : 12.7[sec] (mean: 0.0425)[sec]
 ================================ img.png ================================
-imread_opencv  : 36.7
-imread_pillow  : 22.4
-imread_imageio : 22.0
-imread_skimage : 23.1
+imread_opencv  : 22.7[sec] (mean: 0.0755)[sec]
+imread_pillow  : 18.5[sec] (mean: 0.0616)[sec]
+imread_imageio : 18.9[sec] (mean: 0.0631)[sec]
+imread_skimage : 18.9[sec] (mean: 0.0631)[sec]
+imread_tf      : 19.4[sec] (mean: 0.0645)[sec]
+================================ img.jpg ================================
+imread_opencv  : 20.8[sec] (mean: 0.0693)[sec]
+imread_pillow  : 19.1[sec] (mean: 0.0638)[sec]
+imread_imageio : 19.6[sec] (mean: 0.0652)[sec]
+imread_skimage : 19.7[sec] (mean: 0.0656)[sec]
+imread_tf      : 10.3[sec] (mean: 0.0342)[sec]
 ```
 
-個人的に一番よく使うJPEGでOpenCVがだいぶ速かった。が…
+- **JPEGでTensorflowが最速**
 
 ### Linuxで[Pillow-SIMD](https://github.com/uploadcare/pillow-simd)な環境
 
 ```txt
 ================================ img.gif ================================
-imread_opencv  : 17.6
-imread_pillow  :  8.9
-imread_imageio : 43.7
-imread_skimage : 10.5
-================================ img.jpg ================================
-imread_opencv  : 18.4
-imread_pillow  : 11.2
-imread_imageio : 11.5
-imread_skimage : 11.5
+imread_opencv  : 14.7[sec] (mean: 0.0489)[sec]
+imread_pillow  : 11.5[sec] (mean: 0.0385)[sec]
+imread_imageio : 60.3[sec] (mean: 0.2011)[sec]
+imread_skimage : 59.5[sec] (mean: 0.1984)[sec]
+imread_tf      : 12.8[sec] (mean: 0.0428)[sec]
 ================================ img.png ================================
-imread_opencv  : 36.3
-imread_pillow  : 23.9
-imread_imageio : 22.7
-imread_skimage : 22.3
+imread_opencv  : 22.7[sec] (mean: 0.0757)[sec]
+imread_pillow  : 18.4[sec] (mean: 0.0612)[sec]
+imread_imageio : 18.6[sec] (mean: 0.0621)[sec]
+imread_skimage : 18.6[sec] (mean: 0.0621)[sec]
+imread_tf      : 19.4[sec] (mean: 0.0645)[sec]
+================================ img.jpg ================================
+imread_opencv  : 20.8[sec] (mean: 0.0695)[sec]
+imread_pillow  : 12.9[sec] (mean: 0.0432)[sec]
+imread_imageio : 13.2[sec] (mean: 0.0440)[sec]
+imread_skimage : 13.2[sec] (mean: 0.0441)[sec]
+imread_tf      : 10.4[sec] (mean: 0.0346)[sec]
 ```
 
-`Pillow-SIMD`にしてみたらもうこれでいいじゃんという感じ。
+- `Pillow-SIMD`導入してもJPEGではTensorflowが最速
