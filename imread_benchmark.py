@@ -2,12 +2,13 @@
 import pathlib
 import timeit
 
+import PIL.Image
 import cv2
 import imageio
 import numpy as np
-import PIL.Image
 import skimage.color
 import skimage.io
+import tensorflow as tf
 
 BASE_DIR = pathlib.Path(__file__).parent
 # せめて日本語パスくらいには対応しててほしいので日本語ディレクトリ名
@@ -27,17 +28,20 @@ def _main():
     for x in X1:
         for f in functions:
             img = f(x)
-            assert img is not None and img.shape == (1280, 1920, 3) and img.dtype == np.float32, f'Load error: {f.__name__}("{x}") -> {img if img is None else img.shape}"'
+            assert img is not None and img.shape == (1280, 1920,
+                                                     3) and img.dtype == np.float32, f'Load error: {f.__name__}("{x}") -> {img if img is None else img.shape}"'
     for x in X2:
         for f in functions:
             assert f(x) is None, f'Load error: {f.__name__} {x}'
 
     # 速度計測
+    loop = 300
     for i, x in enumerate(X1):
         print('=' * 32, x.name, '=' * 32)
         for f in functions:
-            t = timeit.timeit('''f(x)''', number=300, globals={'f': f, 'x': x})
-            print(f'{f.__name__:15s}: {t:4.1f}')
+            t = timeit.timeit('''f(x)''', number=loop, globals={'f': f, 'x': x})
+            print(
+                f'{f.__name__:15s}: {t:4.1f}[sec] (mean:{t / loop: .4f})[sec]')
 
 
 def imread_opencv(path):
@@ -83,6 +87,12 @@ def imread_skimage(path):
         return img.astype(np.float32)
     except BaseException:
         return None
+
+
+def imread_tf(path):
+    img = tf.io.read_file(str(path))
+    img = tf.image.decode_image(img, channels=3, dtype=tf.dtypes.float32)
+    return img.numpy()
 
 
 if __name__ == '__main__':
