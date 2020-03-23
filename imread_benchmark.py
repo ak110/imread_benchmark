@@ -90,9 +90,12 @@ def imread_skimage(path):
 
 
 def imread_tf(path):
-    img = tf.io.read_file(str(path))
-    img = tf.image.decode_image(img, channels=3, dtype=tf.dtypes.float32)
-    return img.numpy()
+    try:
+        img = tf.io.read_file(str(path))
+        img = tf.image.decode_image(img, channels=3)
+    except BaseException:
+        return None
+    return img.numpy().astype(np.float32)
 
 
 if __name__ == '__main__':
