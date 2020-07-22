@@ -3,3 +3,4 @@ scikit-image
 Pillow
 imageio
 tensorflow
+lycon
