@@ -24,6 +24,7 @@ def _main():
         imread_imageio,
         imread_skimage,
         imread_tf,
+        imread_lycon
     ]
 
     # 動作確認
