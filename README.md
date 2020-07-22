@@ -23,49 +23,43 @@
 ### Linuxで普通のPillowな環境
 
 ```txt
-================================ img.gif ================================
-imread_opencv  : 14.8[sec] (mean: 0.0493)[sec]
-imread_pillow  : 11.0[sec] (mean: 0.0366)[sec]
-imread_imageio : 62.4[sec] (mean: 0.2081)[sec]
-imread_skimage : 61.0[sec] (mean: 0.2034)[sec]
-imread_tf      : 12.7[sec] (mean: 0.0425)[sec]
-================================ img.png ================================
-imread_opencv  : 22.7[sec] (mean: 0.0755)[sec]
-imread_pillow  : 18.5[sec] (mean: 0.0616)[sec]
-imread_imageio : 18.9[sec] (mean: 0.0631)[sec]
-imread_skimage : 18.9[sec] (mean: 0.0631)[sec]
-imread_tf      : 19.4[sec] (mean: 0.0645)[sec]
 ================================ img.jpg ================================
-imread_opencv  : 20.8[sec] (mean: 0.0693)[sec]
-imread_pillow  : 19.1[sec] (mean: 0.0638)[sec]
-imread_imageio : 19.6[sec] (mean: 0.0652)[sec]
-imread_skimage : 19.7[sec] (mean: 0.0656)[sec]
-imread_tf      : 10.3[sec] (mean: 0.0342)[sec]
+imread_opencv  : 19.9[sec] (mean: 0.0664)[sec]
+imread_pillow  : 18.4[sec] (mean: 0.0613)[sec]
+imread_imageio : 18.9[sec] (mean: 0.0631)[sec]
+imread_skimage : 18.9[sec] (mean: 0.0629)[sec]
+imread_tf      :  9.6[sec] (mean: 0.0321)[sec]
+imread_lycon   : 10.8[sec] (mean: 0.0358)[sec]
+================================ img.png ================================
+imread_opencv  : 21.8[sec] (mean: 0.0726)[sec]
+imread_pillow  : 17.5[sec] (mean: 0.0583)[sec]
+imread_imageio : 18.1[sec] (mean: 0.0603)[sec]
+imread_skimage : 18.1[sec] (mean: 0.0602)[sec]
+imread_tf      : 18.8[sec] (mean: 0.0628)[sec]
+imread_lycon   : 17.1[sec] (mean: 0.0571)[sec]
 ```
 
 - **JPEGでTensorflowが最速**
+- **PNGについてはlyconが最速**
 
 ### Linuxで[Pillow-SIMD](https://github.com/uploadcare/pillow-simd)な環境
 
 ```txt
-================================ img.gif ================================
-imread_opencv  : 14.7[sec] (mean: 0.0489)[sec]
-imread_pillow  : 11.5[sec] (mean: 0.0385)[sec]
-imread_imageio : 60.3[sec] (mean: 0.2011)[sec]
-imread_skimage : 59.5[sec] (mean: 0.1984)[sec]
-imread_tf      : 12.8[sec] (mean: 0.0428)[sec]
-================================ img.png ================================
-imread_opencv  : 22.7[sec] (mean: 0.0757)[sec]
-imread_pillow  : 18.4[sec] (mean: 0.0612)[sec]
-imread_imageio : 18.6[sec] (mean: 0.0621)[sec]
-imread_skimage : 18.6[sec] (mean: 0.0621)[sec]
-imread_tf      : 19.4[sec] (mean: 0.0645)[sec]
 ================================ img.jpg ================================
-imread_opencv  : 20.8[sec] (mean: 0.0695)[sec]
-imread_pillow  : 12.9[sec] (mean: 0.0432)[sec]
-imread_imageio : 13.2[sec] (mean: 0.0440)[sec]
-imread_skimage : 13.2[sec] (mean: 0.0441)[sec]
-imread_tf      : 10.4[sec] (mean: 0.0346)[sec]
+imread_opencv  : 20.0[sec] (mean: 0.0666)[sec]
+imread_pillow  : 12.2[sec] (mean: 0.0408)[sec]
+imread_imageio : 12.7[sec] (mean: 0.0424)[sec]
+imread_skimage : 12.8[sec] (mean: 0.0426)[sec]
+imread_tf      :  9.6[sec] (mean: 0.0319)[sec]
+imread_lycon   : 10.9[sec] (mean: 0.0364)[sec]
+================================ img.png ================================
+imread_opencv  : 21.6[sec] (mean: 0.0719)[sec]
+imread_pillow  : 17.6[sec] (mean: 0.0586)[sec]
+imread_imageio : 18.0[sec] (mean: 0.0601)[sec]
+imread_skimage : 18.0[sec] (mean: 0.0601)[sec]
+imread_tf      : 19.1[sec] (mean: 0.0635)[sec]
+imread_lycon   : 17.3[sec] (mean: 0.0577)[sec]
 ```
 
 - `Pillow-SIMD`導入してもJPEGではTensorflowが最速
+- 同様にPNGについてはlyconが最速
