@@ -13,7 +13,8 @@ import lycon
 
 BASE_DIR = pathlib.Path(__file__).parent
 # せめて日本語パスくらいには対応しててほしいので日本語ディレクトリ名
-X1 = list((BASE_DIR / 'で～た').glob('*'))
+X1 = list(path for path in (BASE_DIR / 'で～た').glob('*')
+          if path.suffix != ".gif")
 X2 = list((BASE_DIR / 'で～た2').glob('*'))
 
 
