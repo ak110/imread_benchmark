@@ -7,6 +7,7 @@
 - imageio.imread
 - skimage.io.imread
 - [tf.io.decode_image](https://www.tensorflow.org/api_docs/python/tf/io/decode_image)
+- [lycon.load](https://github.com/ethereon/lycon)
 
 (後ろ二つはバックエンドがPillowとかだったりするけど一応。)
 
