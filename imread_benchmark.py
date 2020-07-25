@@ -10,6 +10,7 @@ import skimage.color
 import skimage.io
 import tensorflow as tf
 import lycon
+import jpeg4py
 
 BASE_DIR = pathlib.Path(__file__).parent
 # せめて日本語パスくらいには対応しててほしいので日本語ディレクトリ名
@@ -25,18 +26,9 @@ def _main():
         imread_imageio,
         imread_skimage,
         imread_tf,
-        imread_lycon
+        imread_lycon,
+        # imread_jpeg4py
     ]
-
-    # 動作確認
-    for x in X1:
-        for f in functions:
-            img = f(x)
-            assert img is not None and img.shape == (1280, 1920,
-                                                     3) and img.dtype == np.float32, f'Load error: {f.__name__}("{x}") -> {img if img is None else img.shape}"'
-    for x in X2:
-        for f in functions:
-            assert f(x) is None, f'Load error: {f.__name__} {x}'
 
     # 速度計測
     loop = 300
@@ -110,6 +102,17 @@ def imread_tf(path):
 def imread_lycon(path):
     try:
         img = lycon.load(str(path))
+        # lycon can't load gif file
+        if img is None:
+            return None
+        return img.astype(np.float32)
+    except BaseException:
+        return None
+
+
+def imread_jpeg4py(path):
+    try:
+        img = jpeg4py.JPEG(str(path)).decode()
         # lycon can't load gif file
         if img is None:
             return None

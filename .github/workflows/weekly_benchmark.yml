@@ -1,6 +1,8 @@
-name: imread_benchmark_on_pushed
+name: weekly_imread_benchmark
 
-on: [push]
+on:
+  schedule:
+    - cron: "0 0 * * 0"
 
 jobs:
   build:
@@ -22,4 +24,4 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: benchmark
       run: |
-        python test_imread.py
+        python imread_benchmark.py
