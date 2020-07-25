@@ -4,3 +4,4 @@ Pillow
 imageio
 tensorflow
 lycon
+jpeg4py

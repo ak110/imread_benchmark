@@ -10,6 +10,7 @@ import skimage.color
 import skimage.io
 import tensorflow as tf
 import lycon
+import jpeg4py
 
 BASE_DIR = pathlib.Path(__file__).parent
 # せめて日本語パスくらいには対応しててほしいので日本語ディレクトリ名
@@ -25,7 +26,8 @@ def _main():
         imread_imageio,
         imread_skimage,
         imread_tf,
-        imread_lycon
+        imread_lycon,
+        imread_jpeg4py
     ]
 
     # 動作確認
@@ -110,6 +112,17 @@ def imread_tf(path):
 def imread_lycon(path):
     try:
         img = lycon.load(str(path))
+        # lycon can't load gif file
+        if img is None:
+            return None
+        return img.astype(np.float32)
+    except BaseException:
+        return None
+
+
+def imread_jpeg4py(path):
+    try:
+        img = jpeg.JPEG(str(path)).decode()
         # lycon can't load gif file
         if img is None:
             return None
