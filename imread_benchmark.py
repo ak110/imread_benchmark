@@ -122,7 +122,7 @@ def imread_lycon(path):
 
 def imread_jpeg4py(path):
     try:
-        img = jpeg.JPEG(str(path)).decode()
+        img = jpeg4py.JPEG(str(path)).decode()
         # lycon can't load gif file
         if img is None:
             return None
