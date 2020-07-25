@@ -22,4 +22,4 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: benchmark
       run: |
-        python imread_benchmark.py
+        python test_imread.py
