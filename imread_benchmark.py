@@ -27,7 +27,7 @@ def _main():
         imread_skimage,
         imread_tf,
         imread_lycon,
-        imread_jpeg4py
+        # imread_jpeg4py
     ]
 
     # 速度計測

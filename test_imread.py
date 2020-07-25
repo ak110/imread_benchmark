@@ -18,7 +18,7 @@ def test_imread():
         imread_skimage,
         imread_tf,
         imread_lycon,
-        imread_jpeg4py
+        # imread_jpeg4py
     ]
     for image_path in image_paths:
         for f in functions:
