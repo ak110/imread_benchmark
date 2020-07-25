@@ -1,6 +1,8 @@
-name: imread_benchmark_on_pushed
+name: weekly_imread_benchmark
 
-on: [push]
+on:
+  schedule:
+    - cron: "0 0 * * 0"
 
 jobs:
   build:
