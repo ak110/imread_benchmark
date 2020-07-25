@@ -30,16 +30,6 @@ def _main():
         imread_jpeg4py
     ]
 
-    # 動作確認
-    for x in X1:
-        for f in functions:
-            img = f(x)
-            assert img is not None and img.shape == (1280, 1920,
-                                                     3) and img.dtype == np.float32, f'Load error: {f.__name__}("{x}") -> {img if img is None else img.shape}"'
-    for x in X2:
-        for f in functions:
-            assert f(x) is None, f'Load error: {f.__name__} {x}'
-
     # 速度計測
     loop = 300
     for i, x in enumerate(X1):
