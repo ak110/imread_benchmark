@@ -1,3 +1,4 @@
+import numpy as np
 from pathlib import Path
 
 from imread_benchmark import (imread_opencv, imread_pillow,
