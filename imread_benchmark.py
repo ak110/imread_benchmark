@@ -129,6 +129,8 @@ def imread_torchvision(path):
         tensor = torchvision.io.read_image(str(path))
         # to numpy ndarray
         img = tensor.to('cpu').detach().numpy().copy()
+        # (3, w, h) to (w, h, 3)
+        img = img.transpose(2, 0, 1)
         if img is None:
             return None
         return img.astype(np.float32)
