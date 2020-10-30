@@ -27,6 +27,7 @@ def _main():
         imread_skimage,
         imread_tf,
         imread_lycon,
+        imread_torchvision
         # imread_jpeg4py
     ]
 
