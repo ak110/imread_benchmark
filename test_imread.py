@@ -3,7 +3,8 @@ from pathlib import Path
 
 from imread_benchmark import (imread_opencv, imread_pillow,
                               imread_imageio, imread_skimage,
-                              imread_tf, imread_lycon, imread_jpeg4py)
+                              imread_tf, imread_lycon, imread_jpeg4py,
+                              imread_torchvision)
 
 BASE_DIR = Path(__file__).parent
 image_paths = list(path for path in (BASE_DIR / 'で～た').glob('*')
@@ -18,6 +19,7 @@ def test_imread():
         imread_skimage,
         imread_tf,
         imread_lycon,
+        imread_torchvision
         # imread_jpeg4py
     ]
     for image_path in image_paths:
