@@ -5,5 +5,5 @@ imageio
 tensorflow
 lycon
 jpeg4py
-torch
-torchvision
+torch==1.7.0
+torchvision==0.8.1
