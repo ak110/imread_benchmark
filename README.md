@@ -8,6 +8,7 @@
 - skimage.io.imread
 - [tf.io.decode_image](https://www.tensorflow.org/api_docs/python/tf/io/decode_image)
 - [lycon.load](https://github.com/ethereon/lycon)
+- [torchvision.io.read_image](https://pytorch.org/docs/stable/torchvision/io.html#image)
 
 (後ろ二つはバックエンドがPillowとかだったりするけど一応。)
 
@@ -15,6 +16,15 @@
 
 - 入力: pathlib.Path
 - 出力: float32のndarray。shapeは`(height, width, RGB)`。値は[0, 255]。エラー時はNone。
+
+## 環境情報
+GoogleColabratoryに依存します、その他のライブラリversionは以下のrequirements.txtを参照しております。
+- [wakamezake/imread_benchmark/blob/master/requirements.txt](https://github.com/wakamezake/imread_benchmark/blob/master/requirements.txt)
+
+実験に使用したコードやデータは以下になります。
+- [wakamezake/imread_benchmark/blob/master/Load_image_benchmark.ipynb](https://github.com/wakamezake/imread_benchmark/blob/master/Load_image_benchmark.ipynb)
+- [wakamezake/imread_benchmark/blob/master/imread_benchmark.py](https://github.com/wakamezake/imread_benchmark/blob/master/imread_benchmark.py)
+- [wakamezake/imread_benchmark/tree/master/%E3%81%A7%EF%BD%9E%E3%81%9F](https://github.com/wakamezake/imread_benchmark/tree/master/%E3%81%A7%EF%BD%9E%E3%81%9F)
 
 ## 実行結果例
 
@@ -24,19 +34,21 @@
 
 ```txt
 ================================ img.jpg ================================
-imread_opencv  : 19.9[sec] (mean: 0.0664)[sec]
-imread_pillow  : 18.4[sec] (mean: 0.0613)[sec]
-imread_imageio : 18.9[sec] (mean: 0.0631)[sec]
-imread_skimage : 18.9[sec] (mean: 0.0629)[sec]
-imread_tf      :  9.6[sec] (mean: 0.0321)[sec]
-imread_lycon   : 10.8[sec] (mean: 0.0358)[sec]
+imread_opencv  : 23.0[sec] (mean: 0.0767)[sec]
+imread_pillow  : 21.9[sec] (mean: 0.0730)[sec]
+imread_imageio : 24.1[sec] (mean: 0.0804)[sec]
+imread_skimage : 23.1[sec] (mean: 0.0768)[sec]
+imread_tf      : 12.6[sec] (mean: 0.0420)[sec]
+imread_lycon   : 13.0[sec] (mean: 0.0432)[sec]
+imread_torchvision: 13.2[sec] (mean: 0.0442)[sec]
 ================================ img.png ================================
-imread_opencv  : 21.8[sec] (mean: 0.0726)[sec]
-imread_pillow  : 17.5[sec] (mean: 0.0583)[sec]
-imread_imageio : 18.1[sec] (mean: 0.0603)[sec]
-imread_skimage : 18.1[sec] (mean: 0.0602)[sec]
-imread_tf      : 18.8[sec] (mean: 0.0628)[sec]
-imread_lycon   : 17.1[sec] (mean: 0.0571)[sec]
+imread_opencv  : 24.4[sec] (mean: 0.0815)[sec]
+imread_pillow  : 21.1[sec] (mean: 0.0703)[sec]
+imread_imageio : 22.3[sec] (mean: 0.0744)[sec]
+imread_skimage : 22.0[sec] (mean: 0.0732)[sec]
+imread_tf      : 22.5[sec] (mean: 0.0749)[sec]
+imread_lycon   : 19.8[sec] (mean: 0.0662)[sec]
+imread_torchvision: 21.0[sec] (mean: 0.0699)[sec]
 ```
 
 - **JPEGでTensorflowが最速**
@@ -46,19 +58,21 @@ imread_lycon   : 17.1[sec] (mean: 0.0571)[sec]
 
 ```txt
 ================================ img.jpg ================================
-imread_opencv  : 20.0[sec] (mean: 0.0666)[sec]
-imread_pillow  : 12.2[sec] (mean: 0.0408)[sec]
-imread_imageio : 12.7[sec] (mean: 0.0424)[sec]
-imread_skimage : 12.8[sec] (mean: 0.0426)[sec]
-imread_tf      :  9.6[sec] (mean: 0.0319)[sec]
-imread_lycon   : 10.9[sec] (mean: 0.0364)[sec]
+imread_opencv  : 22.3[sec] (mean: 0.0745)[sec]
+imread_pillow  : 15.7[sec] (mean: 0.0524)[sec]
+imread_imageio : 16.7[sec] (mean: 0.0556)[sec]
+imread_skimage : 17.9[sec] (mean: 0.0598)[sec]
+imread_tf      : 12.4[sec] (mean: 0.0413)[sec]
+imread_lycon   : 13.0[sec] (mean: 0.0432)[sec]
+imread_torchvision: 14.0[sec] (mean: 0.0468)[sec]
 ================================ img.png ================================
-imread_opencv  : 21.6[sec] (mean: 0.0719)[sec]
-imread_pillow  : 17.6[sec] (mean: 0.0586)[sec]
-imread_imageio : 18.0[sec] (mean: 0.0601)[sec]
-imread_skimage : 18.0[sec] (mean: 0.0601)[sec]
-imread_tf      : 19.1[sec] (mean: 0.0635)[sec]
-imread_lycon   : 17.3[sec] (mean: 0.0577)[sec]
+imread_opencv  : 24.9[sec] (mean: 0.0831)[sec]
+imread_pillow  : 21.1[sec] (mean: 0.0703)[sec]
+imread_imageio : 22.0[sec] (mean: 0.0734)[sec]
+imread_skimage : 22.2[sec] (mean: 0.0740)[sec]
+imread_tf      : 23.4[sec] (mean: 0.0781)[sec]
+imread_lycon   : 19.8[sec] (mean: 0.0660)[sec]
+imread_torchvision: 21.7[sec] (mean: 0.0722)[sec]
 ```
 
 - `Pillow-SIMD`導入してもJPEGではTensorflowが最速
