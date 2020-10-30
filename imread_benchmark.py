@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-import pathlib
-import timeit
-
 import PIL.Image
 import cv2
 import imageio
+import jpeg4py
+import lycon
 import numpy as np
+import pathlib
 import skimage.color
 import skimage.io
 import tensorflow as tf
-import lycon
-import jpeg4py
+import timeit
+import torchvision
 
 BASE_DIR = pathlib.Path(__file__).parent
 # せめて日本語パスくらいには対応しててほしいので日本語ディレクトリ名
@@ -114,6 +114,20 @@ def imread_jpeg4py(path):
     try:
         img = jpeg4py.JPEG(str(path)).decode()
         # lycon can't load gif file
+        if img is None:
+            return None
+        return img.astype(np.float32)
+    except BaseException:
+        return None
+
+
+def imread_torchvision(path):
+    # https://pytorch.org/docs/stable/torchvision/io.html#image
+    try:
+        # Tensor
+        tensor = torchvision.io.read_image(str(path))
+        # to numpy ndarray
+        img = tensor.to('cpu').detach().numpy().copy()
         if img is None:
             return None
         return img.astype(np.float32)
