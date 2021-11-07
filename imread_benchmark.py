@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
+import sys
+import platform
 import PIL.Image
 import cv2
 import imageio
 import jpeg4py
 import lycon
 import numpy as np
+import skimage
 import skimage.color
 import skimage.io
 import tensorflow as tf
 import timeit
+import torch
 import torchvision
 from pathlib import Path
 
@@ -17,8 +21,23 @@ IMG_DIR_NAME = 'images'
 IMG_PATH = BASE_DIR / IMG_DIR_NAME
 X1 = list(path for path in IMG_PATH.glob('*') if path.suffix != ".gif")
 
+def library_version():
+    def get_version(obj):
+        return getattr(obj, '__version__', 'None')
+    def get_name(obj):
+        return getattr(obj, '__name__', 'None')
+    print('=' * 32, 'OS info', '=' * 32)
+    print(platform.platform())
+    print('=' * 32, 'Python version', '=' * 32)
+    print(sys.version)
+    print('=' * 32, 'Libraries version', '=' * 32)
+    for _obj in [np, cv2, PIL.Image, imageio, skimage, tf, lycon, torch, torchvision, jpeg4py]:
+        print(f'{get_name(_obj)}: {get_version(_obj)}')
+
+
 
 def _main():
+    library_version()
     functions = [
         imread_opencv,
         imread_pillow,
