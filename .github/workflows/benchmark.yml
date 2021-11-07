@@ -23,7 +23,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: benchmark
       run: |
-        echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID" > ${{ env.RESULT_PATH }}
+        echo "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" > ${{ env.RESULT_PATH }}
         python imread_benchmark.py >> ${{ env.RESULT_PATH }}
     - name: create issue
       uses: peter-evans/create-issue-from-file@v3
