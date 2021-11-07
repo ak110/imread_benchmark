@@ -7,9 +7,9 @@ from imread_benchmark import (imread_opencv, imread_pillow,
                               imread_torchvision)
 
 BASE_DIR = Path(__file__).parent
-image_paths = list(path for path in (BASE_DIR / 'で～た').glob('*')
-                   if path.suffix != ".gif")
-
+IMG_DIR_NAME = 'images'
+IMG_PATH = BASE_DIR / IMG_DIR_NAME
+image_paths = list(path for path in IMG_PATH.glob('*') if path.suffix != ".gif")
 
 def test_imread():
     functions = [
