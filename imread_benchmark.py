@@ -5,18 +5,17 @@ import imageio
 import jpeg4py
 import lycon
 import numpy as np
-import pathlib
 import skimage.color
 import skimage.io
 import tensorflow as tf
 import timeit
 import torchvision
+from pathlib import Path
 
-BASE_DIR = pathlib.Path(__file__).parent
-# せめて日本語パスくらいには対応しててほしいので日本語ディレクトリ名
-X1 = list(path for path in (BASE_DIR / 'で～た').glob('*')
-          if path.suffix != ".gif")
-X2 = list((BASE_DIR / 'で～た2').glob('*'))
+BASE_DIR = Path(__file__).parent
+IMG_DIR_NAME = 'images'
+IMG_PATH = BASE_DIR / IMG_DIR_NAME
+X1 = list(path for path in IMG_PATH.glob('*') if path.suffix != ".gif")
 
 
 def _main():
