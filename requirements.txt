@@ -3,7 +3,6 @@ scikit-image
 Pillow
 imageio
 tensorflow
-lycon
-jpeg4py
+tinyscaler
 torch
 torchvision
