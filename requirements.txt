@@ -3,6 +3,5 @@ scikit-image
 Pillow
 imageio
 tensorflow
-tinyscaler
 torch
 torchvision
