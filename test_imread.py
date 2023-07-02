@@ -1,35 +1,42 @@
+import unittest
 import numpy as np
 from pathlib import Path
 
-from imread_benchmark import (imread_opencv, imread_pillow,
-                              imread_imageio, imread_skimage,
-                              imread_tf, imread_lycon, imread_jpeg4py,
-                              imread_torchvision)
+from imread_benchmark import (
+    imread_opencv,
+    imread_pillow,
+    imread_imageio,
+    imread_skimage,
+    imread_tf,
+    imread_torchvision,
+)
 
 BASE_DIR = Path(__file__).parent
-IMG_DIR_NAME = 'images'
+IMG_DIR_NAME = "images"
 IMG_PATH = BASE_DIR / IMG_DIR_NAME
-image_paths = list(path for path in IMG_PATH.glob('*') if path.suffix != ".gif")
-
-def test_imread():
-    functions = [
-        imread_opencv,
-        imread_pillow,
-        imread_imageio,
-        imread_skimage,
-        imread_tf,
-        imread_lycon,
-        imread_torchvision
-        # imread_jpeg4py
-    ]
-    for image_path in image_paths:
-        for f in functions:
-            img = f(image_path)
-            assert img is not None and \
-                   img.shape == (1280, 1920, 3) and \
-                   img.dtype == np.float32, \
-                f'Load error: {f.__name__}("{image_path}") -> {img if img is None else img.shape}"'
+image_paths = list(path for path in IMG_PATH.glob("*") if path.suffix != ".gif")
 
 
-if __name__ == '__main__':
-    test_imread()
+class TestImread(unittest.TestCase):
+    def test_imread(self):
+        functions = [
+            imread_opencv,
+            imread_pillow,
+            imread_imageio,
+            imread_skimage,
+            imread_tf,
+            imread_torchvision,
+        ]
+        for image_path in image_paths:
+            for f in functions:
+                img = f(image_path)
+                self.assertIsNotNone(
+                    img,
+                    f'Load error: {f.__name__}("{image_path}") -> {img if img is None else img.shape}"',
+                )
+                self.assertEqual(img.shape, (1280, 1920, 3))
+                self.assertEqual(img.dtype, np.float32)
+
+
+if __name__ == "__main__":
+    unittest.main()
